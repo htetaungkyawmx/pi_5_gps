@@ -12,10 +12,34 @@ class MapScreen extends StatefulWidget {
   State<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   final MapController _mapController = MapController();
   final LatLng _defaultCenter = const LatLng(16.8409, 96.1735);
   double _currentZoom = 14.0;
+
+  late AnimationController _radarController;
+  late Animation<double> _radarAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _radarController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat();
+    _radarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _radarController, curve: Curves.easeOut),
+    );
+    _radarController.addListener(() {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _radarController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +62,7 @@ class _MapScreenState extends State<MapScreen> {
               initialCenter: _defaultCenter,
               initialZoom: _currentZoom,
               minZoom: 3,
-              maxZoom: 18,
+              maxZoom: 20,
             ),
             children: [
               TileLayer(
@@ -52,16 +76,29 @@ class _MapScreenState extends State<MapScreen> {
                   ],
                 ),
               if (current != null)
-                MarkerLayer(
-                  markers: [
+                CircleLayer(
+                  circles: [
+                    CircleMarker(
+                      point: current,
+                      radius: 100 + _radarAnimation.value * 900, // Pulsing radar from 100m to 1000m
+                      color: Colors.greenAccent.withOpacity(0.3 - _radarAnimation.value * 0.3),
+                      borderColor: Colors.greenAccent,
+                      borderStrokeWidth: 2,
+                      useRadiusInMeter: true,
+                    ),
+                  ],
+                ),
+              MarkerLayer(
+                markers: [
+                  if (current != null)
                     Marker(
                       point: current,
                       width: 20,
                       height: 20,
                       child: Image.asset('assets/icon.png'),
                     ),
-                  ],
-                ),
+                ],
+              ),
             ],
           ),
           Positioned(left: 12, right: 12, bottom: 12, child: _HudPanel()),
