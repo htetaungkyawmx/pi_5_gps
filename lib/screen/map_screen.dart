@@ -492,7 +492,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          Image.asset('assets/icon.png'),
+                          Image.asset('assets/icon2.png'),
                           CustomPaint(
                             painter: _CrosshairPainter(),
                             size: const Size(30, 30),
