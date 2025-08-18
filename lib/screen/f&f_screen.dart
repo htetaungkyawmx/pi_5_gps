@@ -20,6 +20,8 @@ class _HackingScreenState extends State<HackingScreen> {
     "CRYPTO >> Brute forcing AES-256 session keys...",
     "CRYPTO >> Key fragment [OK] (2048-bit RSA bypass)",
     "FIREWALL >> Injecting shellcode into secure gateway...",
+    "LOADING MODULES [████████████████████████████] 100%...",
+    "GPS DRIVER LOADED SUCCESSFULLY...",
     "SIGINT >> Capturing GPS L1/L2/L5 packets...",
     "SIGINT >> Reconstructing ephemeris & almanac data...",
     "PARSER >> Decoding NMEA/RMC/GGA frames...",
@@ -45,7 +47,7 @@ class _HackingScreenState extends State<HackingScreen> {
 
   Future<void> _runScript() async {
     for (int i = 0; i < _fakeCmds.length; i++) {
-      await Future.delayed(const Duration(milliseconds: 900));
+      await Future.delayed(const Duration(milliseconds: 500));
       if (!mounted) return;
       setState(() => _index = i);
 
@@ -90,8 +92,19 @@ class _HackingScreenState extends State<HackingScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("PI5 GPS TRACE // v1.0",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text(
+                  "SECURE NAVIGATION PI 5",
+                  style: TextStyle(
+                    fontFamily: "Courier",
+                    fontSize: 16,
+                    color: Colors.greenAccent,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2.0,
+                    shadows: [
+                      Shadow(blurRadius: 12, color: Colors.green, offset: Offset(0, 0)),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Expanded(
                   child: ListView.builder(
@@ -100,8 +113,18 @@ class _HackingScreenState extends State<HackingScreen> {
                     itemBuilder: (ctx, i) => AnimatedTextKit(
                       isRepeatingAnimation: false,
                       animatedTexts: [
-                        TyperAnimatedText(lines[i],
-                            speed: const Duration(milliseconds: 28)),
+                        TyperAnimatedText(
+                          lines[i],
+                          speed: const Duration(milliseconds: 28),
+                          textStyle: const TextStyle(
+                            fontFamily: "Courier",
+                            fontSize: 16,
+                            color: Colors.greenAccent,
+                            shadows: [
+                              Shadow(blurRadius: 8, color: Colors.green, offset: Offset(0, 0)),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -110,6 +133,7 @@ class _HackingScreenState extends State<HackingScreen> {
                 const LinearProgressIndicator(
                   minHeight: 3,
                   backgroundColor: Colors.white12,
+                  color: Colors.greenAccent, // neon green progress bar
                 ),
               ],
             ),

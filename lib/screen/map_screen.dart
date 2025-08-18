@@ -140,7 +140,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     setState(() {});
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text('Hack Scan Complete: 6 Targets Acquired', style: TextStyle(color: Colors.greenAccent)),
+        content: const Text('Scan Complete: 6 Targets Acquired', style: TextStyle(color: Colors.greenAccent)),
         backgroundColor: Colors.black87,
         duration: const Duration(seconds: 2),
       ),
@@ -159,7 +159,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          _trafficJammerActive ? 'Traffic Grid Hack Activated' : 'Traffic Grid Hack Deactivated',
+          _trafficJammerActive ? 'Traffic Grid Activated' : 'Traffic Grid Deactivated',
           style: const TextStyle(color: Colors.greenAccent),
         ),
         backgroundColor: Colors.black87,
@@ -215,7 +215,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           _intrudedDevices.add({
             'position': LatLng(current.latitude + offsetLat, current.longitude + offsetLon),
             'id': 'DEV${random.nextInt(1000).toString().padLeft(3, '0')}',
-            'type': ['Camera', 'Drone', 'Sensor'][random.nextInt(3)],
+            'type': ['Camera', 'Drone', 'Jumper'][random.nextInt(3)],
             'data': 'STREAM_${random.nextInt(10000)}',
           });
         }
@@ -502,8 +502,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                     ),
                   ..._hackedTargets.map((target) => Marker(
                     point: target['position'],
-                    width: 40,
-                    height: 40,
+                    width: 20,
+                    height: 20,
                     child: GestureDetector(
                       onTap: () => _showTargetDetails(target),
                       child: ScaleTransition(
@@ -511,15 +511,15 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                         child: Icon(
                           Icons.local_taxi,
                           color: target['status'] == 'Compromised' ? Colors.redAccent : Colors.yellowAccent,
-                          size: 30,
+                          size: 20,
                         ),
                       ),
                     ),
                   )),
                   ..._interceptedSignals.map((signal) => Marker(
                     point: signal['position'],
-                    width: 40,
-                    height: 40,
+                    width: 20,
+                    height: 20,
                     child: GestureDetector(
                       onTap: () => _showSignalDetails(signal),
                       child: ScaleTransition(
@@ -530,8 +530,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                   )),
                   ..._intrudedDevices.map((device) => Marker(
                     point: device['position'],
-                    width: 40,
-                    height: 40,
+                    width: 20,
+                    height: 20,
                     child: GestureDetector(
                       onTap: () => _showDeviceDetails(device),
                       child: ScaleTransition(
@@ -552,8 +552,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                     ...[
                       Marker(
                         point: LatLng(_defaultCenter.latitude + 0.005, _defaultCenter.longitude + 0.005),
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                         child: AnimatedBuilder(
                           animation: _blinkAnimation,
                           builder: (context, child) => Opacity(
@@ -564,8 +564,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       ),
                       Marker(
                         point: LatLng(_defaultCenter.latitude - 0.005, _defaultCenter.longitude - 0.005),
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                         child: AnimatedBuilder(
                           animation: _blinkAnimation,
                           builder: (context, child) => Opacity(
@@ -576,8 +576,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       ),
                       Marker(
                         point: LatLng(_defaultCenter.latitude + 0.007, _defaultCenter.longitude - 0.007),
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                         child: AnimatedBuilder(
                           animation: _blinkAnimation,
                           builder: (context, child) => Opacity(
@@ -588,8 +588,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       ),
                       Marker(
                         point: LatLng(_defaultCenter.latitude - 0.007, _defaultCenter.longitude + 0.007),
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                         child: AnimatedBuilder(
                           animation: _blinkAnimation,
                           builder: (context, child) => Opacity(
@@ -724,7 +724,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 8),
                 _ControlButton(
-                  heroTag: 'jammer',
+                  heroTag: 'jumper',
                   icon: Icons.wifi_off,
                   onPressed: _toggleTrafficJammer,
                   active: _trafficJammerActive,
