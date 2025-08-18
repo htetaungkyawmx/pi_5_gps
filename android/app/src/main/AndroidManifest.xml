@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Allow ws:// during LAN dev. Remove or set to false for production (use wss://). -->
     <application
-        android:label="pi_5_gps"
+        android:label="PI5GPS"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
