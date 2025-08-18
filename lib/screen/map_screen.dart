@@ -56,8 +56,8 @@ class _MapScreenState extends State<MapScreen> {
                   markers: [
                     Marker(
                       point: current,
-                      width: 40,
-                      height: 40,
+                      width: 20,
+                      height: 20,
                       child: Image.asset('assets/icon.png'),
                     ),
                   ],
