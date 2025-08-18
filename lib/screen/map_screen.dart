@@ -450,8 +450,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       borderColor: Colors.cyanAccent.withOpacity(0.3),
                       borderStrokeWidth: 1,
                       useRadiusInMeter: true,
-                      // Note: flutter_map CircleMarker does not have a 'painter' property.
-                      // If custom painting is needed, consider using a Marker with CustomPaint instead.
                     ),
                   ],
                 ),
@@ -481,8 +479,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       borderColor: Colors.greenAccent.withOpacity(0.2),
                       borderStrokeWidth: 2,
                       useRadiusInMeter: true,
-                      // Note: flutter_map CircleMarker does not have a 'painter' property.
-                      // If custom painting is needed, consider using a Marker with CustomPaint instead.
                     ),
                   ],
                 ),
@@ -696,6 +692,14 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ),
           ),
           Positioned(
+            top: 16,
+            left: 16,
+            right: 16,
+            child: _StatusBar(
+              systemStatus: _trafficJammerActive || _signalInterceptorActive || _deviceIntrusionActive ? 'ACTIVE' : 'IDLE',
+            ),
+          ),
+          Positioned(
             right: 16,
             top: 100,
             child: Column(
@@ -855,6 +859,54 @@ class _ControlButton extends StatelessWidget {
   }
 }
 
+class _StatusBar extends StatelessWidget {
+  final String systemStatus;
+
+  const _StatusBar({required this.systemStatus});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.7),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.greenAccent.withOpacity(0.9)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'SYS: $systemStatus',
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.greenAccent,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'MEM: ${(math.Random().nextInt(80) + 20)}%',
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.greenAccent,
+              fontSize: 12,
+            ),
+          ),
+          Text(
+            'CPU: ${(math.Random().nextInt(60) + 20)}%',
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.greenAccent,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _HudPanel extends StatelessWidget {
   final Animation<double> blinkAnimation;
   final String alertMessage;
@@ -915,8 +967,6 @@ class _HudPanel extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.terminal, color: Colors.greenAccent, size: 14),
-                const SizedBox(width: 8),
                 Expanded(
                   child: Wrap(
                     spacing: 10,
