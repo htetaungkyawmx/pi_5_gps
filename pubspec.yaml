@@ -1,0 +1,25 @@
+# pubspec.yaml
+name: pi_5_gps
+description: "A new Flutter project."
+publish_to: "none"
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.2
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  web_socket_channel: ^3.0.1
+  animated_text_kit: ^4.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon.png
