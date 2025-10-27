@@ -1,6 +1,10 @@
-name: pi_5_gps
-description: "A new Flutter project."
-publish_to: "none"
+name: pi5_gps_tracker
+description: |
+  Real-time GPS tracking app with live maps. 
+  Track your location, view on interactive maps, and monitor movements in real-time.
+
+publish_to: 'none'
+
 version: 1.0.0+1
 
 environment:
