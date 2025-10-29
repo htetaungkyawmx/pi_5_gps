@@ -1,22 +1,11 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'package:pi5_gps_tracker/screen/f_screen.dart';
+import 'package:pi5_gps_tracker/screen/fake_screen.dart';
+import 'package:pi5_gps_tracker/state/tracker_provider.dart';
 import 'package:provider/provider.dart';
-import 'state/tracker_provider.dart';
-import 'ui/hacking_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Replace with your Pi hostname or IP
-  const wsUrl = 'ws://192.168.0.206:8765';
-
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => TrackerProvider(wsUrl),
-      child: const GpsApp(),
-    ),
-  );
+  runApp(const GpsApp());
 }
 
 class GpsApp extends StatelessWidget {
@@ -24,14 +13,17 @@ class GpsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Pi 5 GPS",
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        colorScheme: const ColorScheme.dark(primary: Colors.greenAccent),
+    return ChangeNotifierProvider(
+      create: (_) => TrackerProvider('ws://192.168.0.206:8765'),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Pi 5 GPS Tracker',
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Colors.black,
+          colorScheme: const ColorScheme.dark(primary: Colors.greenAccent),
+        ),
+        home: const HackingScreen(),
       ),
-      home: const HackingScreen(),
     );
   }
 }

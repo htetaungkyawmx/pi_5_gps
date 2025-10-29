@@ -1,14 +1,11 @@
 name: pi5_gps_tracker
-description: |
-  Real-time GPS tracking app with live maps. 
-  Track your location, view on interactive maps, and monitor movements in real-time.
-
+description: Real-time GPS tracking app with live maps
 publish_to: 'none'
 
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -22,15 +19,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/icon2.png
 
-flutter_launcher_icons:
-  android: true
-  ios: false
-  image_path: "assets/icon.png"
-  min_sdk_android: 21
+  assets:
+    - assets/
